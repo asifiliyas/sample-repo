@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Page</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .signup-form {
+        max-width: 400px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      button {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="signup-form">
+        <h2 class="text-center">Sign Up</h2>
+
+        <div class="form-group" id="name-field">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" />
+        </div>
+        <div class="form-group" id="password-field">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" />
+        </div>
+        <div class="form-group" id="cnfrmpass-field">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" class="form-control" id="confirmPassword" />
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input gender"
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+              />
+              <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input gender"
+                type="radio"
+                name="gender"
+                id="female"
+                value="female"
+              />
+              <label class="form-check-label" for="female">Female</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" id="mobile-field">
+          <label for="phone">Phone</label>
+          <input type="tel" class="form-control" id="phone" name="phone" />
+        </div>
+        <div class="form-group" id="email-field">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+        <button id="sign-up" class="btn btn-primary btn-block">Sign Up</button>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $("#sign-up").click(function () {
+        const user_name = $("#username").val();
+        const regex1 = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
+
+        const pass_word = $("#password").val();
+        const regex2 =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        const confirm_Pass = $("#confirmPassword").val();
+        const regex3 =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        const e_mail = $("#email").val();
+        const regex4 = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        const phone_no = $("#phone").val();
+        const regex5 = /^[0-9][0-9\-\(\) ]{8,}$/;
+
+        // $("small").forEach((el) => el.remove());
+        // First I wrote this then chatgpt told me that it should be that below line, can u plz this line?
+        $("small").each(function () {
+          $(this).remove();
+        }); //This worked for me but I did not understood it that much
+
+        // if (!user_name) {
+        //   document
+        //     .querySelector("#name-field")  $("small").each(function() { $(this).remove(); });
+        //     .append(getErrorHtml("Username is required field"));
+        // }
+        // if (!phone_no) {
+        //   document
+        //     .querySelector("#mobile-field")
+        //     .append(getErrorHtml("Phone is required field"));
+        // }
+        // if (!e_mail) {
+        //   document
+        //     .querySelector("#email-field")
+        //     .append(getErrorHtml("Email is required field"));
+        // }
+        if (!regex1.test(user_name)) {
+          $("#name-field").append(
+            '<small class="text-danger">Invalid Username Format</small>'
+          );
+        }
+
+        if (!regex2.test(pass_word)) {
+          $("#password-field").append(
+            '<small class="text-danger">Invalid Password Format</small>'
+          );
+        }
+
+        if (pass_word !== confirm_Pass) {
+          $("#cnfrmpass-field").append(
+            '<small class="text-danger">Password do not match</small>'
+          );
+        }
+        if (!regex4.test(e_mail)) {
+          $("#email-field").append(
+            '<small class="text-danger">Invalid Email Format</small>'
+          );
+        }
+
+        if (!regex5.test(phone_no)) {
+          $("#mobile-field").append(
+            '<small class="text-danger">Invalid Phone number Format</small>'
+          );
+        }
+      });
+      function getgender() {
+        $(".gender").each(function (element) {
+          console.log($(this).val(), $(this).prop("checked"));
+        });
+      }
+    </script>
+  </body>
+</html>
